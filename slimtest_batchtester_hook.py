@@ -100,7 +100,7 @@ def run_tests(build, args):
     'buildtime': build.build.get_buildtime(),
     'sqlitedb': database_for_build(build),
     'logfile': logfile,
-    'jsbridge_port': 24242 + build.num # Use different jsbridge ports so as not to collide
+    'marionette_port': 24242 + build.num # Use different jsbridge ports so as not to collide
   })
 
   display = ":%u" % (build.num + 9,)
