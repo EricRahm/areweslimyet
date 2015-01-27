@@ -22,6 +22,9 @@ class EnduranceTest(BenchTester.BenchTest):
     parent.add_argument('--marionette_port',
                         help="Port to use for marionette, so concurrent tests don't collide",
                         default="24242")
+    parent.add_argument('--gecko_log',
+                        help="Logfile for gecko output. Defaults to 'gecko.log'",
+                        default=None)
     self.name = "EnduranceTest"
     self.parent = parent
 
@@ -30,6 +33,7 @@ class EnduranceTest(BenchTester.BenchTest):
     self.ready = True
     self.endurance_results = None
     self.port = int(self.parent.args['marionette_port'])
+    self.gecko_log = self.parent.args['gecko_log']
 
     return True
 
@@ -79,7 +83,8 @@ class EnduranceTest(BenchTester.BenchTest):
                     binary=self.tester.binary,
                     profile=profile,
                     logger=logger,
-                    address="localhost:%d" % self.port)
+                    address="localhost:%d" % self.port,
+                    gecko_log=self.gecko_log)
 
     # Add test
     testpath = os.path.join(*testvars['test'])
