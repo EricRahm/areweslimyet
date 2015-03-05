@@ -8,6 +8,7 @@
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
+import subprocess
 import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), "benchtester")))
