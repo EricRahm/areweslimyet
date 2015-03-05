@@ -25,8 +25,32 @@ for test in AreWeSlimYetTests.values():
 
 # Parse command line arguments
 args = tester.parse_args(sys.argv[1:])
-if not args or not tester.setup(args):
+if not args:
   sys.exit(1)
+
+batchnum = int(args.get('batchnum'))
+print "BATCHNUM = %d" % batchnum
+
+if not tester.setup({
+        'buildname': args['buildname'],
+        'binary': args['binary'],
+        'buildtime': args['buildtime'],
+        'sqlitedb': args['sqlitedb'],
+        'logfile': 'logs/%s.test.log' % args['buildname'],
+        'gecko_log': 'logs/%s.gecko.log' % args['buildname'],
+        'marionette_port': 24242 + batchnum }):
+    sys.exit(1)
+
+display = ":%u" % (batchnum + 9,)
+# kill this display if its already running for some reason
+try:
+    subprocess.check_output([ "vncserver", "-kill", display ])
+except:
+    pass
+
+# Start VNC display
+subprocess.check_output([ "vncserver", display ])
+os.environ['DISPLAY'] = display
 
 # Run tests
 for testname, testinfo in AreWeSlimYetTests.items():

@@ -220,6 +220,7 @@ class BenchTester():
                                                      action='append')
     self.add_argument('-l', '--logfile',             help='Log to given file')
     self.add_argument('-s', '--sqlitedb',            help='Merge datapoint into specified sqlite database')
+    self.add_argument('-n', '--batchnum',            help='The batch number for running in parallel')
 
     self.info("BenchTester instantiated")
 
